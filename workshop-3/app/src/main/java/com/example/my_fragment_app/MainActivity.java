@@ -11,4 +11,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+    @Override
+    public void onItemSelect(OverviewFragment.OverviewActivity overview_activity) {
+
+    }
+
 }
