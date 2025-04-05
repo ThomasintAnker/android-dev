@@ -22,31 +22,43 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="411dp"
-            android:layout_height="84dp"
-            android:layout_marginTop="324dp"
-            android:onClick="another_navigation"
-            android:text="Or maybe something else?"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="411dp"
             android:layout_height="84dp"
-            android:layout_marginTop="223dp"
+            android:layout_marginTop="176dp"
             android:onClick="weather_navigation"
             android:text="You want to know the weather?"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="411dp"
+            android:layout_height="84dp"
+            android:layout_marginTop="56dp"
+            android:onClick="another_navigation"
+            android:text="Or maybe something else?"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/triangle"
+        app:layout_anchor="@+id/constraintLayout3"
+        app:layout_anchorGravity="center">
+
+    </RelativeLayout>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

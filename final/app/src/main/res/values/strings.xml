@@ -3,4 +3,6 @@
     <string name="app_id">com.example.afinal</string>
     <string name="pref_db_sw">com.example.afinal.db_button</string>
     <string name="title_activity_orientation_demo">orientation_demo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

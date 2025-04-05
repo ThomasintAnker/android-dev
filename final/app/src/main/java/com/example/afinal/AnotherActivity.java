@@ -11,10 +11,9 @@ public class AnotherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.another_activity);
 
-        // Send us back!
-        Toolbar toolbar = findViewById(R.id.topBar);
-        toolbar.setNavigationOnClickListener(v -> {
-            finish();
-        });
+        InterestingFragment f = new InterestingFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainerView, f)
+                .commit();
     }
 }

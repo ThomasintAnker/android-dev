@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -50,10 +49,10 @@ public class WeatherActivity extends AppCompatActivity {
 
     public void fetch_data(View view) {
         ListView list = findViewById(R.id.list);
-        String url = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/'s-hertogenbosch?unitGroup=";
-
         @SuppressLint("UseSwitchCompatOrMaterialCode")
         Switch sw = findViewById(R.id.temp_switch);
+
+        String url = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/'s-hertogenbosch?unitGroup=";
         url += sw.isChecked() ? "metric" : "us";
         url += "&elements=datetime%2Cname%2Caddress%2CresolvedAddress%2Clatitude%2Clongitude%2Ctempmax%2Ctempmin%2Ctemp%2Csunrise%2Csunset&key=B92M3RGGTVPJEF7D4D72SXHG2&contentType=json";
 
@@ -61,24 +60,9 @@ public class WeatherActivity extends AppCompatActivity {
         JsonObjectRequest req = new JsonObjectRequest(
                 Request.Method.GET, url, null, response ->
             {
-                ArrayList<String> data = new ArrayList<>();
-                try {
-                    JSONArray forecast = response.getJSONArray("days");
-                    for (int i = 0; i < forecast.length(); i++) {
-                        JSONObject obj = forecast.getJSONObject(i);
-                        data.add(String.format("%s\n Min:%s Max:%s", obj.getString("datetime"), obj.getString("tempmin"), obj.getString("tempmax")));
-                    }
-                } catch (Exception e) {
-                    Toast.makeText(WeatherActivity.this, "Something went wrong?", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                final ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                        WeatherActivity.this, android.R.layout.simple_list_item_1, data
-                );
-                list.setAdapter(adapter);
+                populate_list(response, list);
             }, error -> {
-                Toast.makeText(WeatherActivity.this, "Something went wrong?", Toast.LENGTH_SHORT).show();
+                error_message();
             }
         );
         queue.add(req);
@@ -93,4 +77,26 @@ public class WeatherActivity extends AppCompatActivity {
         db.apply();
     }
 
+    private void populate_list(JSONObject _resp, ListView _list) {
+        ArrayList<String> data = new ArrayList<>();
+        try {
+            JSONArray forecast = _resp.getJSONArray("days");
+            for (int i = 0; i < forecast.length(); i++) {
+                JSONObject obj = forecast.getJSONObject(i);
+                data.add(String.format("%s\nMin:%s\t\t\tMax:%s", obj.getString("datetime"), obj.getString("tempmin"), obj.getString("tempmax")));
+            }
+        } catch (Exception e) {
+            error_message();
+            return;
+        }
+
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                WeatherActivity.this, android.R.layout.simple_list_item_1, data
+        );
+        _list.setAdapter(adapter);
+    }
+
+    private void error_message() {
+        Toast.makeText(WeatherActivity.this, "Something went wrong?", Toast.LENGTH_SHORT).show();
+    }
 }
