@@ -11,8 +11,10 @@ public class AnotherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.another_activity);
 
+        // Replace current fragment in <fragmentContainerView> with new <InterestingFragment()>
         InterestingFragment f = new InterestingFragment();
-        getSupportFragmentManager().beginTransaction()
+        getSupportFragmentManager()
+                .beginTransaction()
                 .replace(R.id.fragmentContainerView, f)
                 .commit();
     }
